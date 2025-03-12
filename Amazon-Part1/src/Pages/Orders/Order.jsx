@@ -17,7 +17,7 @@ function Order() {
         .collection("orders")
         .orderBy("created", "desc")
         .onSnapshot((snapshot) => {
-          console.log(snapshot);
+          // console.log(snapshot);
           setOrders(
             snapshot.docs.map((doc) => ({
               id: doc.id,
@@ -36,22 +36,23 @@ function Order() {
         <div className={classes.orders__containers}>
           <h2>Your Orders</h2>
           {
-            orders?.length==0 && 
+            orders?.length===0 && 
             <div style={{padding:'20px'}}>
               You Do Not Have Orders Yet 
               </div>
           }
           <div>
-            {orders?.map((eachOrder) => {
+            {orders?.map((eachOrder,i) => {
               return (
-                <div>
+                <div key={i}>
                   <hr />
                   <p>Order ID:{eachOrder?.id}</p>
-                  {eachOrder?.data.basket?.map((order) => (
+                  {eachOrder?.data?.basket?.map((order) => (
                     <ProductCard
                       flex={true}
                       product={order}
-                      // key={order.id}
+                      key={order.id}
+                      renderAdd={true}
                     />
                   ))}
                 </div>

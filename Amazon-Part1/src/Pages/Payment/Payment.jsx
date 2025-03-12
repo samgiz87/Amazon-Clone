@@ -27,11 +27,11 @@ function Payment() {
 
   const stripe = useStripe();
   const elements = useElements();
-  const navigate = useNavigate;
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     // console.log(e);
-    e.error?.message ? setCardError() : setCardError("");
+    e?.error?.message ? setCardError(e?.error?.message ) : setCardError("");
   };
 
   const handlePayment = async (e) => {
@@ -66,6 +66,7 @@ function Payment() {
       dispatch({ type: Type.EMPTY_BASKET });
 
       setProcessing(false);
+      navigate("/orders", { state: { msg: "You have placed a new order" } });
     } catch (error) {
       // console.log(error);
       setProcessing(false);
@@ -103,7 +104,7 @@ function Payment() {
           <h3>Review Items and Delivery</h3>
           <div>
             {basket?.map((item) => (
-              <ProductCard product={item} flex={true} />
+              <ProductCard product={item} flex={true} renderAdd={false}/>
             ))}
           </div>
         </div>
