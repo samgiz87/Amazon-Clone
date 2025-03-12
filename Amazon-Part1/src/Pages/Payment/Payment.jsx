@@ -71,6 +71,7 @@ function Payment() {
       // console.log(error);
       setProcessing(false);
       navigate("/orders", { state: { msg: "You have placed a new order" } });
+      
      
     }
 
